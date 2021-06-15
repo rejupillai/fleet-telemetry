@@ -48,8 +48,8 @@ export class MapComponent implements OnInit {
          let newMarker = marker([vehicle.lat,vehicle.lng] ,
                                  {
                                    icon: icon( {
-                                                 iconSize: [ 25, 41 ],
-                                                 iconAnchor: [ 11, 41 ],
+                                                 iconSize: [ 75, 75 ],
+                                                 iconAnchor: [ 11, 75 ],
                                                  iconUrl: 'assets/marker-icon.png',
                                                  shadowUrl: 'assets/marker-shadow.png'
                                                }),

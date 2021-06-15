@@ -5,7 +5,7 @@
 "/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/api-gateway/pom.xml"
 "/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/vehicle-telemetry/pom.xml"
 cd /Users/reju/code/delhi-launch/fleet-telemetry/webapp-angular
-npm install
+#npm install
 ng build --prod
 
 cd ..

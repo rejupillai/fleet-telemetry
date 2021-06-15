@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class PhotoService
 {
-	private Map<String, String> drivers = Stream.of(new String[][] {
-		{"Pam Parry","https://rac-istio-course-images.s3.amazonaws.com/1.jpg"},
-	    {"Duke T. Dog","https://rac-istio-course-images.s3.amazonaws.com/2.jpg"},
-	    {"Denzil Tulser","https://rac-istio-course-images.s3.amazonaws.com/3.jpg"},
-	    {"Herman Boyce","https://rac-istio-course-images.s3.amazonaws.com/4.jpg"},
-	    {"June Snell","https://rac-istio-course-images.s3.amazonaws.com/5.jpg"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 	
+	
+		private Map<String, String> drivers = Stream.of(new String[][] {
+			{"Man Singh","https://storage.googleapis.com/indian-truck-drivers-image/mansingh.jpeg"},
+			{"Pritam Singh","https://storage.googleapis.com/indian-truck-drivers-image/pritamsingh.jpeg"},
+			{"Mandeep Singh","https://storage.googleapis.com/indian-truck-drivers-image/mandeepsingh.jpeg"},
+			{"Mohd Sheik","https://storage.googleapis.com/indian-truck-drivers-image/mohdsheik.jpeg"},
+			{"Dilip Kumar","https://storage.googleapis.com/indian-truck-drivers-image/dileepkumar.jpeg"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+
+
 
 	public String getPhotoFor(String driverName) {
 		return drivers.get(driverName);

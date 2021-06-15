@@ -12,18 +12,18 @@ import com.virtualpairprogrammers.staffmanagement.domain.StaffRecord;
 public class StaffService
 {
 	private Map<String, String> drivers = Stream.of(new String[][] {
-		{"City Truck", "Pam Parry"},
-	    {"Huddersfield Truck A", "Duke T. Dog"},
-	    {"Huddersfield Truck B", "Denzil Tulser"},
-	    {"London Riverside", "Herman Boyce"},
-	    {"Village Truck", "June Snell"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+		{"City Truck", "Man Singh"},
+	    {"Huddersfield Truck A", "Pritam Singh"},
+	    {"Huddersfield Truck B", "Mandeep Singh"},
+	    {"London Riverside", "Mohd Sheik"},
+	    {"Village Truck", "Dilip Kumar"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 	
 	private Map<String, String> photos = Stream.of(new String[][] {
-		{"Pam Parry","https://rac-istio-course-images.s3.amazonaws.com/1.jpg"},
-	    {"Duke T. Dog","https://rac-istio-course-images.s3.amazonaws.com/2.jpg"},
-	    {"Denzil Tulser","https://rac-istio-course-images.s3.amazonaws.com/3.jpg"},
-	    {"Herman Boyce","https://rac-istio-course-images.s3.amazonaws.com/4.jpg"},
-	    {"June Snell","https://rac-istio-course-images.s3.amazonaws.com/5.jpg"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+		{"Man Singh","https://storage.googleapis.com/indian-truck-drivers-image/mansingh.jpeg"},
+	    {"Pritam Singh","https://storage.googleapis.com/indian-truck-drivers-image/pritamsingh.jpeg"},
+	    {"Mandeep Singh","https://storage.googleapis.com/indian-truck-drivers-image/mandeepsingh.jpeg"},
+	    {"Mohd Sheik","https://storage.googleapis.com/indian-truck-drivers-image/mohdsheik.jpeg"},
+	    {"Dilip Kumar","https://storage.googleapis.com/indian-truck-drivers-image/dileepkumar.jpeg"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 	
 	
 	public StaffRecord getDriverDetailsFor(String vehicleName) 
