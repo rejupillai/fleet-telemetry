@@ -2,10 +2,8 @@
 "/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/photo-service/pom.xml"
 "/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/position-tracker/pom.xml"
 "/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/staff-service/pom.xml"
-"/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/position-tracker/pom.xml"
 "/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/api-gateway/pom.xml"
 "/opt/local/apache-maven-3.6.3/bin/mvn" install -f "/Users/reju/code/delhi-launch/fleet-telemetry/vehicle-telemetry/pom.xml"
-
 cd /Users/reju/code/delhi-launch/fleet-telemetry/webapp-angular
 npm install
 ng build --prod
