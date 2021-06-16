@@ -41,6 +41,7 @@ cd ${BASE_DIR}/${GIT_REPO}/$MS_7
 #npm install  #Uncomment this only once to avoid install of node packages.
 ng build --prod
 docker build -t ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} -f ${MS_7}/Dockerfile ${MS_7}
+docker push ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} 
 
 cd ${BASE_DIR}/${GIT_REPO}
 
