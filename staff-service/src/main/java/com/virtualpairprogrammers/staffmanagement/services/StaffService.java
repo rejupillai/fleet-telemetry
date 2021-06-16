@@ -12,11 +12,11 @@ import com.virtualpairprogrammers.staffmanagement.domain.StaffRecord;
 public class StaffService
 {
 	private Map<String, String> drivers = Stream.of(new String[][] {
-		{"City Truck", "Man Singh"},
-	    {"Huddersfield Truck A", "Pritam Singh"},
-	    {"Huddersfield Truck B", "Mandeep Singh"},
-	    {"London Riverside", "Mohd Sheik"},
-	    {"Village Truck", "Dilip Kumar"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
+		{"Purani Dilli Trucking", "Man Singh"},
+	    {"Amritsar Packers", "Pritam Singh"},
+	    {"Worli Packers", "Mandeep Singh"},
+	    {"Namma Bengaluru Logistics", "Mohd Sheik"},
+	    {"Jammu Carriers", "Dilip Kumar"}}).collect(Collectors.toMap(data -> data[0], data -> data[1]));
 	
 	private Map<String, String> photos = Stream.of(new String[][] {
 		{"Man Singh","https://storage.googleapis.com/indian-truck-drivers-image/mansingh.jpeg"},

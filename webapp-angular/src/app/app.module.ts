@@ -36,9 +36,9 @@ const stompConfig: StompConfig = {
 };
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/vehicle/City%20Truck', pathMatch: 'full' },
+  { path: '', redirectTo: '/vehicle/Purani%20Dilli%20Trucking', pathMatch: 'full' },
   { path: 'vehicle/:vehicleName', component: StaticVehicleComponent },
-  { path: '**', redirectTo: '/vehicle/City%20Truck', pathMatch: 'full' }
+  { path: '**', redirectTo: '/vehicle/Purani%20Dilli%20Trucking', pathMatch: 'full' }
 ];
 
 @NgModule({
