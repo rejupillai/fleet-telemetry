@@ -82,6 +82,12 @@ Grab the IP Address and hit the browser, if it doesn't automatically launch. And
 ![Fleet-Man](./truck-telemetry.gif)
 
 
+# Development & Release
+
+## Branching & Merging strategy
+The project will follow below 
+
+<img src="git-model@2x.png" alt="drawing" width="500" width="600"/>
 
 
 
