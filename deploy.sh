@@ -12,7 +12,7 @@ export DOCKER_REGISTRY="docker.io"
 export DOCKER_REPO="reju"
 export IMAGE_TAG="d1"
 
-export K8S_CTX="gke_awesome-anthos_us-central1_mci-us-central1-02"
+export K8S_CTX="gke_awesome-anthos_us-central1-c_delhi-demo"
 export NAMESPACE="default"
 export LB_CREATE_DELAY=30
 
@@ -23,7 +23,7 @@ export MS_3="position-tracker"
 export MS_4="staff-service"
 export MS_5="api-gateway"
 export MS_6="vehicle-telemetry"
-export MS_7="webapp"
+export MS_7="webapp-angular"
 
 
 cd ${BASE_DIR}/${GIT_REPO}
@@ -31,7 +31,7 @@ cd ${BASE_DIR}/${GIT_REPO}
 # Build  & Push to Docker Registry all SpringBoot microservoces
 for MS in ${MS_1} ${MS_2} ${MS_3} ${MS_4} ${MS_5} ${MS_6}
   do
-    "${MVN_HOME}/bin/mvn" install -f "${BASE_DIR}/${GIT_REPO}/${MS}/pom.xml"
+    "${MVN_HOME}/bin/mvn" clean install -f "${BASE_DIR}/${GIT_REPO}/${MS}/pom.xml"
      docker build -t ${DOCKER_REPO}/${MS}:${IMAGE_TAG} -f ${MS}/Dockerfile ${MS}
      docker push ${DOCKER_REPO}/${MS}:${IMAGE_TAG} 
   done
