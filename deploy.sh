@@ -25,34 +25,40 @@ export MS_5="api-gateway"
 export MS_6="vehicle-telemetry"
 export MS_7="webapp-angular"
 
+export DB="postgres-db"
+
 
 cd ${BASE_DIR}/${GIT_REPO}
 
-# Build  & Push to Docker Registry all SpringBoot microservoces
-for MS in ${MS_1} ${MS_2} ${MS_3} ${MS_4} ${MS_5} ${MS_6}
-  do
-    "${MVN_HOME}/bin/mvn" clean install -f "${BASE_DIR}/${GIT_REPO}/${MS}/pom.xml"
-     docker build -t ${DOCKER_REPO}/${MS}:${IMAGE_TAG} -f ${MS}/Dockerfile ${MS}
-     docker push ${DOCKER_REPO}/${MS}:${IMAGE_TAG} 
-  done
+# # Build  & Push to Docker Registry all SpringBoot microservoces
+# for MS in ${MS_1} ${MS_2} ${MS_3} ${MS_4} ${MS_5} ${MS_6}
+#   do
+#     "${MVN_HOME}/bin/mvn" clean install -f "${BASE_DIR}/${GIT_REPO}/${MS}/pom.xml"
+#      docker build -t ${DOCKER_REPO}/${MS}:${IMAGE_TAG} -f ${MS}/Dockerfile ${MS}
+#      docker push ${DOCKER_REPO}/${MS}:${IMAGE_TAG} 
+#   done
 
-# Build & Push to Docker Registry Angular frontend microservice
-cd ${BASE_DIR}/${GIT_REPO}/$MS_7
-#npm install  #Uncomment this only once to avoid install of node packages.
-ng build --prod
-docker build -t ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} -f ${MS_7}/Dockerfile ${MS_7}
-docker push ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} 
+# # Build & Push to Docker Registry Angular frontend microservice
+# cd ${BASE_DIR}/${GIT_REPO}/$MS_7
+# #npm install  #Uncomment this only once to avoid install of node packages.
+# ng build --prod
+# docker build -t ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} -f ${MS_7}/Dockerfile ${MS_7}
+# docker push ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} 
 
-cd ${BASE_DIR}/${GIT_REPO}
+# cd ${BASE_DIR}/${GIT_REPO}
+
+# Install seeded postgres database
+docker build -t ${DOCKER_REPO}/${DB}:${IMAGE_TAG} -f ${DB}/Dockerfile ${DB}
+docker push ${DOCKER_REPO}/${DB}:${IMAGE_TAG} 
 
 
-# Delete all deployments (not services) and re-deploy the containers
-kubectl --context ${K8S_CTX} delete deploy --all -n ${NAMESPACE}
-kubectl apply -f deploy.yaml -n ${NAMESPACE}
+# # Delete all deployments (not services) and re-deploy the containers
+# kubectl --context ${K8S_CTX} delete deploy --all -n ${NAMESPACE}
+# kubectl apply -f deploy.yaml -n ${NAMESPACE}
 
-# Wait for Loadbalancer to be created
-sleep ${LB_CREATE_DELAY}
-export PUBLIC_APP_IP=`kubectl --context=${K8S_CTX} get svc -n ${NAMESPACE} | grep -i LoadBalancer | awk '{print $4}'`
-echo $PUBLIC_APP_IP
+# # Wait for Loadbalancer to be created
+# sleep ${LB_CREATE_DELAY}
+# export PUBLIC_APP_IP=`kubectl --context=${K8S_CTX} get svc -n ${NAMESPACE} | grep -i LoadBalancer | awk '{print $4}'`
+# echo $PUBLIC_APP_IP
 
-open -a "Google Chrome" http://$PUBLIC_APP_IP
+# open -a "Google Chrome" http://$PUBLIC_APP_IP
