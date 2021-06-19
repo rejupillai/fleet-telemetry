@@ -16,34 +16,7 @@ export K8S_CTX="gke_awesome-anthos_us-central1-c_delhi-demo"
 export NAMESPACE="default"
 export LB_CREATE_DELAY=30
 
-
-export MS_1="position-simulator"
-export MS_2="photo-service"
-export MS_3="position-tracker"
-export MS_4="staff-service"
-export MS_5="api-gateway"
-export MS_6="vehicle-telemetry"
-export MS_7="webapp-angular"
-
 export DB="postgres-db"
-
-
-cd ${BASE_DIR}/${GIT_REPO}
-
-# Build  & Push to Docker Registry all SpringBoot microservoces
-for MS in ${MS_1} ${MS_2} ${MS_3} ${MS_4} ${MS_5} ${MS_6}
-  do
-    "${MVN_HOME}/bin/mvn" clean install -f "${BASE_DIR}/${GIT_REPO}/${MS}/pom.xml"
-     docker build -t ${DOCKER_REPO}/${MS}:${IMAGE_TAG} -f ${MS}/Dockerfile ${MS}
-     docker push ${DOCKER_REPO}/${MS}:${IMAGE_TAG} 
-  done
-
-# Build & Push to Docker Registry Angular frontend microservice
-cd ${BASE_DIR}/${GIT_REPO}/$MS_7
-#npm install  #Uncomment this only once to avoid install of node packages.
-ng build --prod
-docker build -t ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} -f ${MS_7}/Dockerfile ${MS_7}
-docker push ${DOCKER_REPO}/${MS_7}:${IMAGE_TAG} 
 
 cd ${BASE_DIR}/${GIT_REPO}
 
@@ -51,9 +24,8 @@ cd ${BASE_DIR}/${GIT_REPO}
 docker build -t ${DOCKER_REPO}/${DB}:${IMAGE_TAG} -f ${DB}/Dockerfile ${DB}
 docker push ${DOCKER_REPO}/${DB}:${IMAGE_TAG} 
 
-
 # Delete all deployments (not services) and re-deploy the containers
-kubectl --context ${K8S_CTX} delete deploy --all -n ${NAMESPACE}
+kubectl --context ${K8S_CTX} delete deploy postgres-db -n ${NAMESPACE}
 kubectl apply -f deploy.yaml -n ${NAMESPACE}
 
 # Wait for Loadbalancer to be created

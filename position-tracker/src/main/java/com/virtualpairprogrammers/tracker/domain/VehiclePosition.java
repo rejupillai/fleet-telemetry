@@ -3,6 +3,8 @@ package com.virtualpairprogrammers.tracker.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -11,8 +13,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@Entity
 public class VehiclePosition implements Comparable<VehiclePosition>
 {
+
+	@Id
 	private String name;
 	private BigDecimal lat;
 	private BigDecimal lng;
