@@ -70,10 +70,12 @@ cd ${BASE_DIR}/${GIT_REPO}
 kubectl --context ${K8S_CTX1} apply -f k8s/ -n ${NAMESPACE}
 kubectl --context ${K8S_CTX1} apply -f mesh/
 kubectl --context ${K8S_CTX1} apply -f mci/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX1} apply -f destinationrules/ -n ${NAMESPACE}
 
 # cluster 2
 kubectl --context ${K8S_CTX2} apply -f k8s/ -n ${NAMESPACE}
 kubectl --context ${K8S_CTX2} apply -f mesh/
+kubectl --context ${K8S_CTX2} apply -f destinationrules/ -n ${NAMESPACE}
 
 # Goto URL
 open -a "Google Chrome" https://frontend.endpoints.delhidc-ce-demo.cloud.goog/
