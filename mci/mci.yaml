@@ -1,0 +1,22 @@
+apiVersion: networking.gke.io/v1beta1
+kind: MultiClusterIngress
+metadata:
+  name: istio-ingressgateway-multicluster-ingress
+  annotations:
+    networking.gke.io/static-ip: "35.227.224.118"
+    kubernetes.io/ingress.allow-http: "false" # not recognized
+    networking.gke.io/pre-shared-certs: "gke-mc-ingress-cert"
+spec:
+  template:
+    spec:
+      backend:
+       serviceName: istio-ingressgateway-multicluster-svc-1
+       servicePort: 443
+      rules:
+        - host: 'frontend.endpoints.delhidc-ce-demo.cloud.goog'
+          http:
+            paths:
+            - path: "/"
+              backend:
+                serviceName: istio-ingressgateway-multicluster-svc-1
+                servicePort: 443

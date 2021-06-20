@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: webapp-vs
+  namespace: default
+spec:
+  gateways:
+  - webapp-gateway
+  hosts:
+  - 'frontend.endpoints.delhidc-ce-demo.cloud.goog'
+  http:
+  - route:
+    - destination:
+        host: fleetman-webapp
+        port:
+          number: 80

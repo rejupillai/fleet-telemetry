@@ -7,17 +7,18 @@
 
 # Parameters that needs changes
 # Used by Sreeni
-# export MVN_HOME=/usr/local
-# export GCP_PROJECT=delhidc-ce-demo
-# export BASE_DIR=/Users/sreemakam/Google-office-backup/google_personal/qwiklabs/fleet-telemetry/dev
-# export DOCKER_REPO="gcr.io/delhidc-ce-demo"
-# export K8S_CTX="anthosgcp"
+export MVN_HOME=/usr/local
+export GCP_PROJECT=delhidc-ce-demo
+export BASE_DIR=/Users/sreemakam/Google-office-backup/google_personal/qwiklabs/fleet-telemetry/dev
+export DOCKER_REPO="gcr.io/delhidc-ce-demo"
+export K8S_CTX1="mci-us"
+export K8S_CTX2="mci-eu"
 
 # Used by Reju
-export MVN_HOME=/opt/local/apache-maven-3.6.3/
-export BASE_DIR=/Users/reju/code/delhi-launch/
-export DOCKER_REPO="reju"
-export K8S_CTX="gke_awesome-anthos_us-central1-c_delhi-demo"
+# export MVN_HOME=/opt/local/apache-maven-3.6.3/
+# export BASE_DIR=/Users/reju/code/delhi-launch/
+# export DOCKER_REPO="reju"
+# export K8S_CTX="gke_awesome-anthos_us-central1-c_delhi-demo"
 
 # Constant parameters 
 
@@ -63,14 +64,16 @@ cd ${BASE_DIR}/${GIT_REPO}
 docker build -t ${DOCKER_REPO}/${DB}:${IMAGE_TAG} -f ${DB}/Dockerfile ${DB}
 docker push ${DOCKER_REPO}/${DB}:${IMAGE_TAG} 
 
+cd ${BASE_DIR}/${GIT_REPO}
+# Create k8s configurations
+# cluster 1, config cluster is cluster 1, so MCI applies only to cluster 1
+kubectl --context ${K8S_CTX1} apply -f k8s/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX1} apply -f mesh/
+kubectl --context ${K8S_CTX1} apply -f mci/ -n ${NAMESPACE}
 
-# Delete all deployments (not services) and re-deploy the containers
-kubectl --context ${K8S_CTX} delete deploy --all -n ${NAMESPACE}
-kubectl apply -f deploy.yaml -n ${NAMESPACE}
+# cluster 2
+kubectl --context ${K8S_CTX2} apply -f k8s/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX2} apply -f mesh/
 
-# Wait for Loadbalancer to be created
-sleep ${LB_CREATE_DELAY}
-export PUBLIC_APP_IP=`kubectl --context=${K8S_CTX} get svc -n ${NAMESPACE} | grep -i LoadBalancer | grep ${WEBAPP} | awk '{print $4}'`
-echo $PUBLIC_APP_IP
-
-open -a "Google Chrome" http://$PUBLIC_APP_IP
+# Goto URL
+open -a "Google Chrome" https://frontend.endpoints.delhidc-ce-demo.cloud.goog/

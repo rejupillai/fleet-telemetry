@@ -1,0 +1,20 @@
+apiVersion: networking.gke.io/v1beta1
+kind: MultiClusterService
+metadata:
+  name: istio-ingressgateway-multicluster-svc-1
+  annotations:
+    beta.cloud.google.com/backend-config: '{"ports": {"443":"gke-ingress-config"}}'
+    networking.gke.io/app-protocols: '{"https":"HTTPS"}'
+spec:
+  template:
+    spec:
+      selector:
+        app: istio-ingressgateway
+      ports:
+      - name: https
+        protocol: TCP
+        port: 443
+        targetPort: 8443
+  clusters:
+  - link: "us-central1/mci-us"
+  - link: "europe-west1/mci-eu"
