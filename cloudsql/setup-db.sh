@@ -9,27 +9,34 @@
 export PROJECT_NAME="delhidc-ce-demo"
 
 # Master DB configurations
-export MASTER="master-db"
+export MASTER="masterdb"
 export MASTER_REGION="us-central1"
 export DB_FLAVOR="POSTGRES_10"
 export DB_PASSWORD="password123"
 export PG_ROOT_USER="postgres"
+export NETWORK="default"
 
 
 # Replica configurations
-export REPLICA="replica-db"
+export REPLICA="replicadb"
 export REPLICA_REGION="europe-west1"
 export REPLICATION_TYPE="synchronous"
 
 
-# gcloud sql instances create ${MASTER} \
-#             --database-version=${DB_FLAVOR} --cpu=2 --memory=8GiB \
-#             --region=${MASTER_REGION} --root-password=${DB_PASSWORD} 
+gcloud sql instances create ${MASTER} \
+  --database-version=${DB_FLAVOR}\
+  --region=${MASTER_REGION} \
+  --root-password=${DB_PASSWORD} \
+  --cpu=2 --memory=8GiB 
 
 
-gcloud sql instances create ${REPLICA}  --master-instance-name=${MASTER} --replication=${REPLICATION_TYPE} \
-            --database-version=${POSTGRES_10} --cpu=2 --memory=8GiB \
-            --region= --root-password=${DB_PASSWORD}
+gcloud sql instances create ${REPLICA}  \
+    --master-instance-name=${MASTER} \
+    --replication=${REPLICATION_TYPE} \
+    --root-password=${DB_PASSWORD} \
+    --region=${REPLICA_REGION} \
+    --cpu=2 --memory=8GiB 
+          
 
 # chmod +x postgres-db/init-fleet-telemetry-db.sh
 # postgres-db/init-fleet-telemetry-db.sh
