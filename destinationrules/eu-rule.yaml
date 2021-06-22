@@ -115,27 +115,3 @@ spec:
       consecutive5xxErrors: 3
       interval: 5s
       baseEjectionTime: 5s
-
----
-
-apiVersion: networking.istio.io/v1beta1
-kind: DestinationRule
-metadata:
-  name: postgres-rule
-spec:
-  host: postgres-db.default.svc.cluster.local
-  trafficPolicy:
-    connectionPool:
-      http:
-        maxRequestsPerConnection: 1
-    loadBalancer:
-      simple: ROUND_ROBIN
-      localityLbSetting:
-        enabled: true
-        failover:
-          - from: europe-west1
-            to: us-central1
-    outlierDetection:
-      consecutive5xxErrors: 3
-      interval: 5s
-      baseEjectionTime: 5s

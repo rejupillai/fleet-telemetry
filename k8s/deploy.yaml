@@ -136,28 +136,6 @@ spec:
         ports:
         - containerPort: 8080
 
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: postgres-db
-spec:
-  selector:
-    matchLabels:
-      app: postgres-db
-  replicas: 1
-  template: # template for the pods
-    metadata:
-      labels:
-        app: postgres-db
-    spec:
-      containers:
-      - name: postgres-db
-        image:  gcr.io/delhidc-ce-demo/postgres-db:d1
-        ports:
-        - containerPort: 5432
-        imagePullPolicy: Always
-
 
 ---
 
@@ -226,17 +204,4 @@ spec:
     - name: http
       port: 8080
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres-db
-  labels:
-    app: postgres-db
-spec:
-  type: ClusterIP
-  ports:
-  - port: 5432
-  selector:
-    app: postgres-db
 

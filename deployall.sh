@@ -67,15 +67,24 @@ docker push ${DOCKER_REPO}/${DB}:${IMAGE_TAG}
 cd ${BASE_DIR}/${GIT_REPO}
 # Create k8s configurations
 # cluster 1, config cluster is cluster 1, so MCI applies only to cluster 1
+kubectl --context ${K8S_CTX1} delete -f k8s/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX1} delete -f mesh/
+kubectl --context ${K8S_CTX1} delete -f mci/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX1} delete -f destinationrules/ -n ${NAMESPACE}
+
 kubectl --context ${K8S_CTX1} apply -f k8s/ -n ${NAMESPACE}
 kubectl --context ${K8S_CTX1} apply -f mesh/
 kubectl --context ${K8S_CTX1} apply -f mci/ -n ${NAMESPACE}
-kubectl --context ${K8S_CTX1} apply -f destinationrules/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX1} apply -f destinationrules/us-rule.yaml -n ${NAMESPACE}
 
 # cluster 2
+kubectl --context ${K8S_CTX2} delete -f k8s/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX2} delete -f mesh/
+kubectl --context ${K8S_CTX2} delete -f destinationrules/ -n ${NAMESPACE}
+
 kubectl --context ${K8S_CTX2} apply -f k8s/ -n ${NAMESPACE}
 kubectl --context ${K8S_CTX2} apply -f mesh/
-kubectl --context ${K8S_CTX2} apply -f destinationrules/ -n ${NAMESPACE}
+kubectl --context ${K8S_CTX2} apply -f destinationrules/eu-rule.yaml -n ${NAMESPACE}
 
 # Goto URL
 open -a "Google Chrome" https://frontend.endpoints.delhidc-ce-demo.cloud.goog/
