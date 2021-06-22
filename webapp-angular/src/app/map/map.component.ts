@@ -50,7 +50,7 @@ export class MapComponent implements OnInit {
                                    icon: icon( {
                                                  iconSize: [ 50, 50 ],
                                                  iconAnchor: [ 11, 50 ],
-                                                 iconUrl: 'assets/marker-icon.png',
+                                                 iconUrl: 'https://storage.googleapis.com/indian-truck-drivers-image/marker-icon.png',
                                                  shadowUrl: 'assets/marker-shadow.png'
                                                }),
                                    title: vehicle.name
